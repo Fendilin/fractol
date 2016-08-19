@@ -16,11 +16,13 @@ int		ft_key_press(int key, t_env *e)
 		exit(0);
 	else if (key == K_ONE)
 	{
+		init_fract(e);
 		ft_strdel(&e->type);
 		e->type = ft_strdup("Mandelbrot");
 	}
 	else if (key == K_TWO)
 	{
+		init_fract(e);
 		ft_strdel(&e->type);
 		e->type = ft_strdup("Julia");
 	}
@@ -32,6 +34,10 @@ int		ft_key_press(int key, t_env *e)
 		e->key &= ~L;
 	else if (key == K_RIGHT)
 		e->key &= ~R;
+	else if (key == K_PLUS)
+		e->key &= ~P;
+	else if (key == K_MINUS)
+		e->key &= ~M;
 	return (1);
 }
 
@@ -53,6 +59,12 @@ int		ft_key_release(int key, t_env *e)
 		e->f->pal = 1;
 	else if (key == K_PTHR)
 		e->f->pal = 2;
+	else if (key == K_PLUS)
+		e->key |= P;
+	else if (key == K_MINUS)
+		e->key |= M;
+	else if (key == K_SPACE)
+		e->f->mstp = (e->f->mstp == 0) ? 1 : 0;
 	return (1);
 }
 

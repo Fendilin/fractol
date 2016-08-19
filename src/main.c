@@ -43,8 +43,8 @@ int		init_palette(t_env *e)
 
 int		init_fract(t_env *e)
 {
-	e->f->c_r = 0;
-	e->f->c_i = 0;
+	e->f->c_r = (ft_strequ(e->type, "Julia")) ? -0.772691322542185 : 0;
+	e->f->c_i = (ft_strequ(e->type, "Julia")) ? 0.124281466072787 : 0;
 	e->f->z_r = 0;
 	e->f->z_i = 0;
 	e->f->tmp = 0;
@@ -60,19 +60,18 @@ int		init_fract(t_env *e)
 int		ft_move(t_env *e)
 {
 	mlx_destroy_image(e->mlx, e->img->img);
-	ft_putnbr(e->key);
-	ft_putchar('\n');
 	if (e->key & U)
-	{
-		ft_putendl("AYAYAY");
-		e->f->movey += 0.1 / e->f->zoom;
-	}
-	if (e->key & D)
 		e->f->movey -= 0.1 / e->f->zoom;
+	if (e->key & D)
+		e->f->movey += 0.1 / e->f->zoom;
 	if (e->key & L)
-		e->f->movex += 0.1 / e->f->zoom;
-	if (e->key & R)
 		e->f->movex -= 0.1 / e->f->zoom;
+	if (e->key & R)
+		e->f->movex += 0.1 / e->f->zoom;
+	if (e->key & P)
+		e->f->ite_max += 2;
+	if (e->key & M && e->f->ite_max > 0)
+		e->f->ite_max -= 2;
 	e->img->img = mlx_new_image(e->mlx, WIN_W, WIN_H);
 	return (1);
 }
@@ -85,14 +84,28 @@ int		ft_expose_hook(t_env *e)
 		do_fract(e, ft_mandel);
 	else if (ft_strequ(e->type, "Julia"))
 		do_fract(e, ft_julia);
+	else if (ft_strequ(e->type, "Newton"))
+		do_fract(e, ft_newton);
 	else
 		ft_usage();
 	mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);
 	return (1);
 }
 
+int		ft_motion(int x, int y, t_env *e)
+{
+	if (e->f->mstp && ft_strequ(e->type, "Julia") && x > 0 && y > 0 && x < WIN_W && y < WIN_H)
+	{
+		e->f->c_r = -0.772691322542185 + (0.00002 * x);
+		e->f->c_i = 0.124281466072787 + (0.00002 * y);
+	}
+	return (1);
+}
+
 int		ft_mouse_hook(int key, int x, int y, t_env *e)
 {
+	ft_putnbr(key);
+	ft_putchar('\n');
 	if (key == 4)
 	{
 		e->f->zoom *= 1.1;
@@ -105,12 +118,6 @@ int		ft_mouse_hook(int key, int x, int y, t_env *e)
 		e->f->zoom /= 1.1;
 		e->f->ite_max -= 1;
 	}
-	if (ft_strequ(e->type, "Julia"))
-	{
-		e->f->c_r = 0.27015 + 0.002 * y;
-		e->f->c_i = 0.7 + 0.002 * x;
-	}
-	ft_expose_hook(e);
 	return (1);
 }
 
@@ -133,6 +140,7 @@ int		main(int argc, char **argv)
 	mlx_hook(e.win, 3, 2, ft_key_press, &e);
 	mlx_hook(e.win, 2, 1, ft_key_release, &e);
 	mlx_mouse_hook(e.win, ft_mouse_hook, &e);
+	mlx_hook(e.win, MN, PMM,ft_motion, &e);
 	mlx_expose_hook(e.win, ft_expose_hook, &e);
 	mlx_loop_hook(e.mlx, ft_expose_hook, &e);
 	mlx_loop(e.mlx);

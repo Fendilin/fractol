@@ -20,6 +20,12 @@
 # define K_PONE		83
 # define K_PTWO		84
 # define K_PTHR		85
+# define K_PLUS		69
+# define K_MINUS	78
+# define K_SPACE	49
+
+# define PMM		(1L << 6)
+# define MN			6
 
 enum	e_keys
 {
@@ -27,6 +33,8 @@ enum	e_keys
 	D = 0x2,
 	R = 0x4,
 	L = 0x8,
+	P = 0x10,
+	M = 0x20,
 };
 
 typedef struct s_fract	t_fract;
@@ -43,6 +51,8 @@ struct					s_fract
 	int		ite_max;
 	int		pal;
 	float	color[N_COLOR];
+	float	newton;
+	int		mstp;
 };
 
 typedef struct s_img	t_img;
@@ -67,10 +77,13 @@ struct					s_env
 };
 
 void		ft_put_pixel_to_img(unsigned long color, t_env *e, int x, int y);
+int			init_fract(t_env *e);
 int			ft_key_press(int key, t_env *e);
 int			ft_key_release(int key, t_env *e);
+int			ft_motion(int x, int y, t_env *e);
 int			do_fract(t_env *e, int (*f)(t_env *e, int x, int y));
 int			ft_mandel(t_env *e, int x, int y);
 int			ft_julia(t_env *e, int x, int y);
+int			ft_newton(t_env *e, int x, int y);
 int			ft_usage(void);
 #endif
