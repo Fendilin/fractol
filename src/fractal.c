@@ -1,28 +1,28 @@
 #include "fractol.h"
 
-int		ft_newton(t_env *e, int x, int y)
+int		ft_burning(t_env *e, int x, int y)
 {
 	int		i;
 
+	e->f->c_r = 1.5 * (x - WIN_W / 2) / (0.5 * e->f->zoom * WIN_W) +
+e->f->movex;
+	e->f->c_i = (y - WIN_H / 2) / (0.5 * e->f->zoom * WIN_H) - e->f->movey;
+	e->f->z_r = 0;
+	e->f->z_i = 0;
 	i = 0;
-	e->f->c_r = 1.5 * (x - WIN_W / 2) / (e->f->zoom * WIN_W) + e->f->movex;
-	e->f->c_i = (y - WIN_H / 2) / (e->f->zoom * WIN_H) + e->f->movey;
-	while (i < e->f->ite_max)
+	while (e->f->z_r * e->f->z_r + e->f->z_i * e->f->z_i <= 4 && i <
+e->f->ite_max)
 	{
-		e->f->z_r = e->f->c_r * e->f->c_r;
-		e->f->z_i = e->f->c_i * e->f->c_i;
-		e->f->newton = 3.0 * ((e->f->z_r - e->f->z_i) * (e->f->z_r - e->f->z_i)
-+ 4.0 * e->f->z_r * e->f->z_i);
-		if (e->f->newton == 0.0)
-			e->f->newton = 0.000001;
-		e->f->tmp = e->f->c_r;
-		e->f->c_r = (2.0 / 3.0) * e->f->c_r + (e->f->z_r - e->f->z_i) /
-e->f->newton;
-		e->f->c_i = (2.0 / 3.0) * e->f->c_i - 2.0 * e->f->tmp * e->f->c_i /
-e->f->newton;
+		e->f->tmp = e->f->z_r;
+		e->f->z_r = (e->f->tmp * e->f->tmp > 0) ? (e->f->tmp * e->f->tmp) :
+-(e->f->tmp * e->f->tmp);
+		e->f->z_r -= e->f->z_i * e->f->z_i + e->f->c_r;
+		e->f->z_i = (e->f->tmp * e->f->z_i > 0) ? 2 * (e->f->tmp * e->f->z_i) :
+ 2 * -(e->f->tmp * e->f->z_i);
+		e->f->z_i += e->f->c_i;
 		i++;
 	}
-	ft_put_pixel_to_img(e->f->c_r * 256, e, x, y);
+	ft_put_pixel_to_img(e->f->color[i * (N_COLOR - 1) / e->f->ite_max], e, x, y);
 	return (1);
 }
 

@@ -84,8 +84,8 @@ int		ft_expose_hook(t_env *e)
 		do_fract(e, ft_mandel);
 	else if (ft_strequ(e->type, "Julia"))
 		do_fract(e, ft_julia);
-	else if (ft_strequ(e->type, "Newton"))
-		do_fract(e, ft_newton);
+	else if (ft_strequ(e->type, "Burning_ship"))
+		do_fract(e, ft_burning);
 	else
 		ft_usage();
 	mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);

@@ -16,15 +16,21 @@ int		ft_key_press(int key, t_env *e)
 		exit(0);
 	else if (key == K_ONE)
 	{
-		init_fract(e);
 		ft_strdel(&e->type);
 		e->type = ft_strdup("Mandelbrot");
+		init_fract(e);
 	}
 	else if (key == K_TWO)
 	{
-		init_fract(e);
 		ft_strdel(&e->type);
 		e->type = ft_strdup("Julia");
+		init_fract(e);
+	}
+	else if (key == K_THREE)
+	{
+		ft_strdel(&e->type);
+		e->type = ft_strdup("Burning_ship");
+		init_fract(e);
 	}
 	else if (key == K_UP)
 		e->key &= ~U;

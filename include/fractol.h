@@ -13,6 +13,7 @@
 # define K_EXIT		53
 # define K_ONE		18
 # define K_TWO		19
+# define K_THREE	20
 # define K_UP		13
 # define K_DOWN		1
 # define K_LEFT		0
@@ -84,6 +85,6 @@ int			ft_motion(int x, int y, t_env *e);
 int			do_fract(t_env *e, int (*f)(t_env *e, int x, int y));
 int			ft_mandel(t_env *e, int x, int y);
 int			ft_julia(t_env *e, int x, int y);
-int			ft_newton(t_env *e, int x, int y);
+int			ft_burning(t_env *e, int x, int y);
 int			ft_usage(void);
 #endif
