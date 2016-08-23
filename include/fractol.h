@@ -79,6 +79,7 @@ struct					s_env
 
 void		ft_put_pixel_to_img(unsigned long color, t_env *e, int x, int y);
 int			init_fract(t_env *e);
+int			ft_move(t_env *e);
 int			ft_key_press(int key, t_env *e);
 int			ft_key_release(int key, t_env *e);
 int			ft_motion(int x, int y, t_env *e);

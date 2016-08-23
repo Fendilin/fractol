@@ -10,11 +10,9 @@ int		ft_usage(void)
 	return (1);
 }
 
-int		ft_key_press(int key, t_env *e)
+int		ft_key_change(int key, t_env *e)
 {
-	if (key == K_EXIT)
-		exit(0);
-	else if (key == K_ONE)
+	if (key == K_ONE)
 	{
 		ft_strdel(&e->type);
 		e->type = ft_strdup("Mandelbrot");
@@ -32,6 +30,15 @@ int		ft_key_press(int key, t_env *e)
 		e->type = ft_strdup("Burning_ship");
 		init_fract(e);
 	}
+	return (1);
+}
+
+int		ft_key_press(int key, t_env *e)
+{
+	if (key == K_EXIT)
+		exit(0);
+	else if (key == K_ONE || key == K_TWO || key == K_THREE)
+		ft_key_change(key, e);
 	else if (key == K_UP)
 		e->key &= ~U;
 	else if (key == K_DOWN)
@@ -49,8 +56,6 @@ int		ft_key_press(int key, t_env *e)
 
 int		ft_key_release(int key, t_env *e)
 {
-	ft_putnbr(key);
-	ft_putchar('\n');
 	if (key == K_UP)
 		e->key |= U;
 	else if (key == K_DOWN)
