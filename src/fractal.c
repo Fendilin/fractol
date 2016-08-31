@@ -6,7 +6,7 @@ int		ft_burning(t_env *e, int x, int y)
 
 	e->f->c_r = 1.5 * (x - WIN_W / 2) / (0.5 * e->f->zoom * WIN_W) +
 e->f->movex;
-	e->f->c_i = (y - WIN_H / 2) / (0.5 * e->f->zoom * WIN_H) - e->f->movey;
+	e->f->c_i = (y - WIN_H / 2) / (0.5 * e->f->zoom * WIN_H) + e->f->movey;
 	e->f->z_r = 0;
 	e->f->z_i = 0;
 	i = 0;

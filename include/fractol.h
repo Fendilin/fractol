@@ -5,10 +5,12 @@
 # include "get_next_line.h"
 # include "mlx.h"
 # include <math.h>
+# include <pthread.h>
 
 # define WIN_W		1900
 # define WIN_H		1000
 # define N_COLOR 	4 * 256
+# define N_TH		8
 
 # define K_EXIT		53
 # define K_ONE		18
@@ -37,6 +39,7 @@ enum	e_keys
 	P = 0x10,
 	M = 0x20,
 };
+
 
 typedef struct s_fract	t_fract;
 struct					s_fract
@@ -75,7 +78,17 @@ struct					s_env
 	t_img	*img;
 	char	*type;
 	int		key;
+	int		first;
 };
+
+typedef struct s_thread t_thread;
+struct					s_thread
+{
+	int		start;
+	int		end;
+	t_env 	*e;
+};
+
 
 void		ft_put_pixel_to_img(unsigned long color, t_env *e, int x, int y);
 int			init_fract(t_env *e);
@@ -83,9 +96,10 @@ int			ft_move(t_env *e);
 int			ft_key_press(int key, t_env *e);
 int			ft_key_release(int key, t_env *e);
 int			ft_motion(int x, int y, t_env *e);
-int			do_fract(t_env *e, int (*f)(t_env *e, int x, int y));
+void		*do_fract(void *th);
 int			ft_mandel(t_env *e, int x, int y);
 int			ft_julia(t_env *e, int x, int y);
 int			ft_burning(t_env *e, int x, int y);
 int			ft_usage(void);
+int			init_thread(t_env *e);
 #endif

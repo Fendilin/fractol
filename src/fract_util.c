@@ -1,22 +1,54 @@
 #include "fractol.h"
 
-int				do_fract(t_env *e, int (*f)(t_env *e, int x, int y))
+int			init_thread(t_env *e)
+{
+	t_thread	th[N_TH];
+	pthread_t	pid[N_TH];
+	int		i;
+	int		j;
+
+	i = -1;
+	j = WIN_H / N_TH;
+	while (++i < N_TH)
+	{
+		th[i].start = i * j;
+		th[i].end = (i + 1) * j;
+		th[i].e = e;
+		if (pthread_create(&pid[i], NULL, do_fract, &th[i]))
+			exit(0);
+	}
+	i = -1;
+	while (++i < N_TH)
+		pthread_join(pid[i], NULL);
+	return (1);
+}
+
+void			*do_fract(void *t)
 {
 	int		x;
 	int		y;
+	t_thread *th;
 
-	x = 0;
-	while (x < WIN_W)
+	th = t;
+	y = th->start;
+	while (y < th->end)
 	{
-		y = 0;
-		while (y < WIN_H)
+		x = 0;
+		while (x < WIN_W)
 		{
-			f(e, x, y);
-			y++;
+			if (ft_strequ(th->e->type, "Mandelbrot"))
+				ft_mandel(th->e, x, y);
+			else if (ft_strequ(th->e->type, "Julia"))
+				ft_julia(th->e, x, y);
+			else if (ft_strequ(th->e->type, "Burning_ship"))
+				ft_burning(th->e, x, y);
+			else
+				ft_usage();
+			x++;
 		}
-		x++;
+		y++;
 	}
-	return (1);
+	return (NULL);
 }
 
 int		init_fract(t_env *e)

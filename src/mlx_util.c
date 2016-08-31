@@ -30,6 +30,7 @@ int		ft_key_change(int key, t_env *e)
 		e->type = ft_strdup("Burning_ship");
 		init_fract(e);
 	}
+	e->first = 1;
 	return (1);
 }
 
@@ -56,6 +57,7 @@ int		ft_key_press(int key, t_env *e)
 
 int		ft_key_release(int key, t_env *e)
 {
+	e->first = 1;
 	if (key == K_UP)
 		e->key |= U;
 	else if (key == K_DOWN)

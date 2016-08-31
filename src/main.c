@@ -43,17 +43,14 @@ int		init_palette(t_env *e)
 
 int		ft_expose_hook(t_env *e)
 {
-	init_palette(e);
-	ft_move(e);
-	if (ft_strequ(e->type, "Mandelbrot"))
-		do_fract(e, ft_mandel);
-	else if (ft_strequ(e->type, "Julia"))
-		do_fract(e, ft_julia);
-	else if (ft_strequ(e->type, "Burning_ship"))
-		do_fract(e, ft_burning);
-	else
-		ft_usage();
-	mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);
+	if (e->key || e->first)
+	{
+		e->first = 0;
+		init_palette(e);
+		ft_move(e);
+		init_thread(e);
+		mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);
+	}
 	return (1);
 }
 
@@ -61,6 +58,7 @@ int		ft_motion(int x, int y, t_env *e)
 {
 	if (e->f->mstp && ft_strequ(e->type, "Julia") && x > 0 && y > 0 && x < WIN_W && y < WIN_H)
 	{
+		e->first = 1;
 		e->f->c_r = -0.772691322542185 + (0.00002 * x);
 		e->f->c_i = 0.124281466072787 + (0.00002 * y);
 	}
@@ -83,6 +81,7 @@ int		ft_mouse_hook(int key, int x, int y, t_env *e)
 		e->f->zoom /= 1.1;
 		e->f->ite_max -= 1;
 	}
+	e->first = 1;
 	return (1);
 }
 
@@ -97,6 +96,7 @@ int		main(int argc, char **argv)
 	e.type = ft_strdup(argv[1]);
 	e.mlx = mlx_init();
 	e.win = mlx_new_window(e.mlx, WIN_W, WIN_H, "TEST");
+	e.first = 1;
 	img.img = mlx_new_image(e.mlx, WIN_W, WIN_H);
 	img.data = mlx_get_data_addr(img.img, &img.bpp, &img.sl, &img.ed);
 	e.img = &img;
