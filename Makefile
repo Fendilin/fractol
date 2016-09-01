@@ -11,7 +11,8 @@ NAME = fractol
 SRC =	main.c\
 		mlx_util.c\
 		fractal.c\
-		fract_util.c
+		fract_util.c\
+		color.c
 
 TOBJ = $(SRC:.c=.o)
 OBJ = $(addprefix obj/, $(TOBJ))

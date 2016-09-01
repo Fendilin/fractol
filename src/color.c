@@ -59,5 +59,3 @@ int		init_palette(t_env *e)
 		ft_color3(e);
 	return (1);
 }
-
-

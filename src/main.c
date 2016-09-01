@@ -1,46 +1,5 @@
 #include "fractol.h"
 
-int		init_palette(t_env *e)
-{
-	int	i;
-
-	i = 0;
-	if (e->f->pal == 0)
-	{
-		while (i < 256)
-		{
-			e->f->color[i] = 0x000055 + i;
-			e->f->color[i + 256] = 0x000055 - i;
-			e->f->color[i + 512] = 0x000055 * i;
-			e->f->color[i + 768] = 0x000055 / (i + 1);
-			i++;
-		}
-	}
-	else if (e->f->pal == 1)
-	{
-		while (i < 256)
-		{
-			e->f->color[i] = 0xA0AA00 + i;
-			e->f->color[i + 256] = 0xA0AA00 - i;
-			e->f->color[i + 512] = 0xA0AA00 * i;
-			e->f->color[i + 768] = 0xA0AA00 / (i + 1);
-			i++;
-		}
-	}
-	else if (e->f->pal == 2)
-	{
-		while (i < 256)
-		{
-			e->f->color[i] = 0xAA0000 + i;
-			e->f->color[i + 256] = 0xAA0000 - i;
-			e->f->color[i + 512] = 0xAA0000 * i;
-			e->f->color[i + 768] = 0xAA0000 / (i + 1);
-			i++;
-		}
-	}
-	return (1);
-}
-
 int		ft_expose_hook(t_env *e)
 {
 	if (e->key || e->first)
@@ -56,7 +15,8 @@ int		ft_expose_hook(t_env *e)
 
 int		ft_motion(int x, int y, t_env *e)
 {
-	if (e->f->mstp && ft_strequ(e->type, "Julia") && x > 0 && y > 0 && x < WIN_W && y < WIN_H)
+	if (e->f->mstp && ft_strequ(e->type, "Julia") && x > 0 &&
+		y > 0 && x < WIN_W && y < WIN_H)
 	{
 		e->first = 1;
 		e->f->c_r = -0.772691322542185 + (0.00002 * x);
@@ -73,8 +33,10 @@ int		ft_mouse_hook(int key, int x, int y, t_env *e)
 	{
 		e->f->zoom *= 1.1;
 		e->f->ite_max += 1;
-		(x > (WIN_W / 2)) ? (e->f->movex += 0.1 / e->f->zoom) : (e->f->movex -= 0.1 / e->f->zoom);
-		(y > (WIN_H / 2)) ? (e->f->movey += 0.1 / e->f->zoom) : (e->f->movey -= 0.1 / e->f->zoom);
+		(x > (WIN_W / 2)) ? (e->f->movex += 0.1 / e->f->zoom) :
+		(e->f->movex -= 0.1 / e->f->zoom);
+		(y > (WIN_H / 2)) ? (e->f->movey += 0.1 / e->f->zoom) :
+		(e->f->movey -= 0.1 / e->f->zoom);
 	}
 	else if (key == 5)
 	{
