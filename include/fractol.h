@@ -6,6 +6,7 @@
 # include "mlx.h"
 # include <math.h>
 # include <pthread.h>
+# include <time.h>
 
 # define WIN_W		1900
 # define WIN_H		1000
@@ -55,7 +56,6 @@ struct					s_fract
 	int		ite_max;
 	int		pal;
 	float	color[N_COLOR];
-	float	newton;
 	int		mstp;
 };
 

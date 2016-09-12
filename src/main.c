@@ -1,14 +1,38 @@
 #include "fractol.h"
 
+int		ft_fps(clock_t start, clock_t end, t_env *e)
+{
+	char	fps[0xF00];
+
+	fps[0] = '\0';
+	ft_strcat(fps, "FPS = ");
+	ft_putnbr((int)1000 / ((end - start) * 1000  / CLOCKS_PER_SEC));
+	ft_putchar('\n');
+	ft_strcat(fps, "   Type = ");
+	ft_strcat(fps, e->type);
+	ft_strcat(fps, "   Ite Max = ");
+	ft_strcat(fps, ft_itoa(e->f->ite_max));
+	ft_strcat(fps, "   Color = ");
+	ft_strcat(fps, ft_itoa(e->f->pal + 1));
+	mlx_string_put(e->mlx, e->win, 20, WIN_H - 20, 0xFFFFFF, fps);
+	return (1);
+}
+
 int		ft_expose_hook(t_env *e)
 {
+	clock_t	start;
+	clock_t	end;
+
+	start = clock();
 	if (e->key || e->first)
 	{
 		e->first = 0;
 		init_palette(e);
 		ft_move(e);
 		init_thread(e);
+		end = clock();
 		mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);
+		ft_fps(start, end, e);
 	}
 	return (1);
 }
