@@ -6,11 +6,11 @@
 /*   By: vterzian <vterzian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 14:52:05 by vterzian          #+#    #+#             */
-/*   Updated: 2014/11/04 15:35:40 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/12 17:55:27 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);

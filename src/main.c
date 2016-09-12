@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/12 16:20:10 by vterzian          #+#    #+#             */
+/*   Updated: 2016/09/12 17:59:23 by vterzian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 int		ft_fps(clock_t start, clock_t end, t_env *e)
@@ -6,7 +18,7 @@ int		ft_fps(clock_t start, clock_t end, t_env *e)
 
 	fps[0] = '\0';
 	ft_strcat(fps, "FPS = ");
-	ft_putnbr((int)1000 / ((end - start) * 1000  / CLOCKS_PER_SEC));
+	ft_putnbr((int)1000 / ((end - start) * 1000 / CLOCKS_PER_SEC));
 	ft_putchar('\n');
 	ft_strcat(fps, "   Type = ");
 	ft_strcat(fps, e->type);
@@ -91,7 +103,7 @@ int		main(int argc, char **argv)
 	mlx_hook(e.win, 3, 2, ft_key_press, &e);
 	mlx_hook(e.win, 2, 1, ft_key_release, &e);
 	mlx_mouse_hook(e.win, ft_mouse_hook, &e);
-	mlx_hook(e.win, MN, PMM,ft_motion, &e);
+	mlx_hook(e.win, MN, PMM, ft_motion, &e);
 	mlx_expose_hook(e.win, ft_expose_hook, &e);
 	mlx_loop_hook(e.mlx, ft_expose_hook, &e);
 	mlx_loop(e.mlx);

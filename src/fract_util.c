@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fract_util.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/12 16:21:28 by vterzian          #+#    #+#             */
+/*   Updated: 2016/09/12 17:58:29 by vterzian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
-int			init_thread(t_env *e)
+int				init_thread(t_env *e)
 {
 	t_thread	th[N_TH];
 	pthread_t	pid[N_TH];
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 
 	i = -1;
 	j = WIN_H / N_TH;
@@ -25,9 +37,9 @@ int			init_thread(t_env *e)
 
 void			*do_fract(void *t)
 {
-	int		x;
-	int		y;
-	t_thread *th;
+	int			x;
+	int			y;
+	t_thread	*th;
 
 	th = t;
 	y = th->start;
@@ -51,7 +63,7 @@ void			*do_fract(void *t)
 	return (NULL);
 }
 
-int		init_fract(t_env *e)
+int				init_fract(t_env *e)
 {
 	e->f->c_r = (ft_strequ(e->type, "Julia")) ? -0.772691322542185 : 0;
 	e->f->c_i = (ft_strequ(e->type, "Julia")) ? 0.124281466072787 : 0;
@@ -67,17 +79,17 @@ int		init_fract(t_env *e)
 	return (1);
 }
 
-int		ft_move(t_env *e)
+int				ft_move(t_env *e)
 {
 	mlx_destroy_image(e->mlx, e->img->img);
 	if (e->key & U)
-		e->f->movey -= 0.1 / e->f->zoom;
+		e->f->movey -= 0.03 / e->f->zoom;
 	if (e->key & D)
-		e->f->movey += 0.1 / e->f->zoom;
+		e->f->movey += 0.03 / e->f->zoom;
 	if (e->key & L)
-		e->f->movex -= 0.1 / e->f->zoom;
+		e->f->movex -= 0.03 / e->f->zoom;
 	if (e->key & R)
-		e->f->movex += 0.1 / e->f->zoom;
+		e->f->movex += 0.03 / e->f->zoom;
 	if (e->key & P)
 		e->f->ite_max += 2;
 	if (e->key & M && e->f->ite_max > 0)

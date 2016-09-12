@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractal.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/12 16:24:10 by vterzian          #+#    #+#             */
+/*   Updated: 2016/09/12 18:00:00 by vterzian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 int		ft_burning(t_env *e, int x, int y)
@@ -23,7 +35,7 @@ int		ft_burning(t_env *e, int x, int y)
 		i++;
 	}
 	ft_put_pixel_to_img(e->f->color[i * (N_COLOR - 1) / e->f->ite_max],
-						 e, x, y);
+						e, x, y);
 	return (1);
 }
 
@@ -35,7 +47,7 @@ int		ft_julia(t_env *e, int x, int y)
 	e->f->z_i = 1.1 * (y - WIN_H / 2) / (0.5 * e->f->zoom * WIN_H)
 				+ e->f->movey;
 	i = 0;
-	while ( i < e->f->ite_max && ((e->f->z_r * e->f->z_r)
+	while (i < e->f->ite_max && ((e->f->z_r * e->f->z_r)
 			+ (e->f->z_i * e->f->z_i)) < 4)
 	{
 		e->f->tmp = e->f->z_r;

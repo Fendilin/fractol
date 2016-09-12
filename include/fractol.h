@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/09/12 18:01:56 by vterzian          #+#    #+#             */
+/*   Updated: 2016/09/12 18:05:23 by vterzian         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -41,7 +53,6 @@ enum	e_keys
 	M = 0x20,
 };
 
-
 typedef struct s_fract	t_fract;
 struct					s_fract
 {
@@ -81,26 +92,26 @@ struct					s_env
 	int		first;
 };
 
-typedef struct s_thread t_thread;
+typedef struct s_thread	t_thread;
 struct					s_thread
 {
 	int		start;
 	int		end;
-	t_env 	*e;
+	t_env	*e;
 };
 
-
-void		ft_put_pixel_to_img(unsigned long color, t_env *e, int x, int y);
-int			init_fract(t_env *e);
-int			init_palette(t_env *e);
-int			ft_move(t_env *e);
-int			ft_key_press(int key, t_env *e);
-int			ft_key_release(int key, t_env *e);
-int			ft_motion(int x, int y, t_env *e);
-void		*do_fract(void *th);
-int			ft_mandel(t_env *e, int x, int y);
-int			ft_julia(t_env *e, int x, int y);
-int			ft_burning(t_env *e, int x, int y);
-int			ft_usage(void);
-int			init_thread(t_env *e);
+void					ft_put_pixel_to_img(unsigned long color,
+											t_env *e, int x, int y);
+int						init_fract(t_env *e);
+int						init_palette(t_env *e);
+int						ft_move(t_env *e);
+int						ft_key_press(int key, t_env *e);
+int						ft_key_release(int key, t_env *e);
+int						ft_motion(int x, int y, t_env *e);
+void					*do_fract(void *th);
+int						ft_mandel(t_env *e, int x, int y);
+int						ft_julia(t_env *e, int x, int y);
+int						ft_burning(t_env *e, int x, int y);
+int						ft_usage(void);
+int						init_thread(t_env *e);
 #endif
