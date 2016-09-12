@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 18:01:56 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/12 18:05:23 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/12 19:44:32 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <pthread.h>
 # include <time.h>
 
-# define WIN_W		1900
-# define WIN_H		1000
+# define WIN_W		1200
+# define WIN_H		700
 # define N_COLOR 	4 * 256
 # define N_TH		8
 

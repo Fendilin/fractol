@@ -6,20 +6,19 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:20:10 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/12 17:59:23 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/12 19:43:36 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		ft_fps(clock_t start, clock_t end, t_env *e)
+int		ft_fps(t_env *e, clock_t start, clock_t end)
 {
 	char	fps[0xF00];
 
 	fps[0] = '\0';
 	ft_strcat(fps, "FPS = ");
-	ft_putnbr((int)1000 / ((end - start) * 1000 / CLOCKS_PER_SEC));
-	ft_putchar('\n');
+	ft_strcat(fps, ft_itoa((int)(1.0f / (end - start) * 1000)));
 	ft_strcat(fps, "   Type = ");
 	ft_strcat(fps, e->type);
 	ft_strcat(fps, "   Ite Max = ");
@@ -33,7 +32,7 @@ int		ft_fps(clock_t start, clock_t end, t_env *e)
 int		ft_expose_hook(t_env *e)
 {
 	clock_t	start;
-	clock_t	end;
+	clock_t end;
 
 	start = clock();
 	if (e->key || e->first)
@@ -44,7 +43,7 @@ int		ft_expose_hook(t_env *e)
 		init_thread(e);
 		end = clock();
 		mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);
-		ft_fps(start, end, e);
+		ft_fps(e, start, end);
 	}
 	return (1);
 }
