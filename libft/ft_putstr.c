@@ -6,7 +6,7 @@
 /*   By: vterzian <vterzian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/05 17:34:51 by vterzian          #+#    #+#             */
-/*   Updated: 2014/12/16 13:23:13 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/20 00:16:06 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,5 @@ void	ft_putstr(const char *s)
 	int i;
 
 	i = 0;
-	while (s[i] != '\0')
-		write(1, &s[i++], 1);
+	write(1, s, ft_strlen(s));
 }

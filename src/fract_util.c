@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:21:28 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/19 22:58:03 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/19 23:31:10 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void			*do_fract(void *t)
 
 int				init_fract(t_env *e)
 {
-	e->f->c_r = (ft_strequ(e->type, "Julia")) ? -0.1072691322542185 : 0;
+	e->f->c_r = (ft_strequ(e->type, "Julia")) ? -0.72691322542185 : 0;
 	e->f->c_i = (ft_strequ(e->type, "Julia")) ? 0.124281466072787 : 0;
 	e->f->z_r = 0;
 	e->f->z_i = 0;

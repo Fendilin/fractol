@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:20:10 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/19 22:12:30 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/20 00:17:23 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_fps(t_env *e, clock_t start, clock_t end)
 
 	fps[0] = '\0';
 	ft_strcat(fps, "FPS = ");
-	tmp = ft_itoa((int)(1.0f / (end - start) * 1000));
+	tmp = ft_itoa(1 / (end - start));
 	ft_strcat(fps, tmp);
 	ft_strdel(&tmp);
 	ft_strcat(fps, "   Type = ");
@@ -69,8 +69,6 @@ int		ft_motion(int x, int y, t_env *e)
 
 int		ft_mouse_hook(int key, int x, int y, t_env *e)
 {
-	ft_putnbr(key);
-	ft_putchar('\n');
 	if (key == M_PLUS)
 	{
 		e->f->zoom *= 1.1;
