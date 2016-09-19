@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:20:10 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/12 19:48:00 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/19 22:12:30 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 int		ft_fps(t_env *e, clock_t start, clock_t end)
 {
 	char	fps[0xF00];
+	char	*tmp;
 
 	fps[0] = '\0';
 	ft_strcat(fps, "FPS = ");
-	ft_strcat(fps, ft_itoa((int)(1.0f / (end - start) * 1000)));
+	tmp = ft_itoa((int)(1.0f / (end - start) * 1000));
+	ft_strcat(fps, tmp);
+	ft_strdel(&tmp);
 	ft_strcat(fps, "   Type = ");
 	ft_strcat(fps, e->type);
 	ft_strcat(fps, "   Ite Max = ");
-	ft_strcat(fps, ft_itoa(e->f->ite_max));
+	tmp = ft_itoa(e->f->ite_max);
+	ft_strcat(fps, tmp);
+	ft_strdel(&tmp);
 	ft_strcat(fps, "   Color = ");
-	ft_strcat(fps, ft_itoa(e->f->pal + 1));
+	tmp = ft_itoa(e->f->pal + 1);
+	ft_strcat(fps, tmp);
+	ft_strdel(&tmp);
 	mlx_string_put(e->mlx, e->win, 20, WIN_H - 20, 0xFFFFFF, fps);
 	return (1);
 }
@@ -54,8 +61,8 @@ int		ft_motion(int x, int y, t_env *e)
 		y > 0 && x < WIN_W && y < WIN_H)
 	{
 		e->first = 1;
-		e->f->c_r = -0.772691322542185 + (0.00002 * x);
-		e->f->c_i = 0.124281466072787 + (0.00002 * y);
+		e->f->c_r = -0.772691322542185 * x / (WIN_W / 2);
+		e->f->c_i = 0.124281466072787 * y  / (WIN_H/ 2);
 	}
 	return (1);
 }
@@ -64,7 +71,7 @@ int		ft_mouse_hook(int key, int x, int y, t_env *e)
 {
 	ft_putnbr(key);
 	ft_putchar('\n');
-	if (key == 4)
+	if (key == M_PLUS)
 	{
 		e->f->zoom *= 1.1;
 		e->f->ite_max += 1;
@@ -73,7 +80,7 @@ int		ft_mouse_hook(int key, int x, int y, t_env *e)
 		(y > (WIN_H / 2)) ? (e->f->movey += 0.1 / e->f->zoom) :
 		(e->f->movey -= 0.1 / e->f->zoom);
 	}
-	else if (key == 5)
+	else if (key == M_MINUS)
 	{
 		e->f->zoom /= 1.1;
 		e->f->ite_max -= 1;

@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 18:01:56 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/12 19:44:32 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/19 22:58:06 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <pthread.h>
 # include <time.h>
 
-# define WIN_W		1200
-# define WIN_H		700
+# define WIN_W		700
+# define WIN_H		500
 # define N_COLOR 	4 * 256
 # define N_TH		8
 
@@ -39,6 +39,8 @@
 # define K_PLUS		69
 # define K_MINUS	78
 # define K_SPACE	49
+# define M_PLUS		5
+# define M_MINUS	4
 
 # define PMM		(1L << 6)
 # define MN			6
