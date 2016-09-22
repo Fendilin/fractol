@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:21:07 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/19 21:00:53 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:37:30 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		ft_usage(void)
 	ft_putendl("usage: ./fractol <option>");
 	ft_putendl("option 1: Mandelbrot");
 	ft_putendl("option 2: Julia");
+	ft_putendl("option 3: Burning_ship");
 	exit(0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:20:10 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/22 18:34:36 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:43:13 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int		ft_fps(t_env *e)
 
 int		ft_expose_hook(t_env *e)
 {
+	if (!ft_strequ(e->type, "Mandelbrot") && !ft_strequ(e->type, "Julia") &&
+		!ft_strequ(e->type, "Burning_ship"))
+		ft_usage();
 	if (e->key || e->first)
 	{
 		e->first = 0;

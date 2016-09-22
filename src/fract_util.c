@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:21:28 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/22 18:10:53 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:43:15 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void			*do_fract(void *t)
 				ft_julia(th->e, x, y);
 			else if (ft_strequ(th->e->type, "Burning_ship"))
 				ft_burning(th->e, x, y);
-			else
-				ft_usage();
 			x++;
 		}
 		y++;
