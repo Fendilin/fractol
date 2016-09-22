@@ -6,23 +6,19 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:20:10 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/20 00:17:23 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:34:36 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		ft_fps(t_env *e, clock_t start, clock_t end)
+int		ft_fps(t_env *e)
 {
 	char	fps[0xF00];
 	char	*tmp;
 
 	fps[0] = '\0';
-	ft_strcat(fps, "FPS = ");
-	tmp = ft_itoa(1 / (end - start));
-	ft_strcat(fps, tmp);
-	ft_strdel(&tmp);
-	ft_strcat(fps, "   Type = ");
+	ft_strcat(fps, "Type = ");
 	ft_strcat(fps, e->type);
 	ft_strcat(fps, "   Ite Max = ");
 	tmp = ft_itoa(e->f->ite_max);
@@ -32,25 +28,21 @@ int		ft_fps(t_env *e, clock_t start, clock_t end)
 	tmp = ft_itoa(e->f->pal + 1);
 	ft_strcat(fps, tmp);
 	ft_strdel(&tmp);
-	mlx_string_put(e->mlx, e->win, 20, WIN_H - 20, 0xFFFFFF, fps);
+	mlx_string_put(e->mlx, e->win, 20, WIN_H - 25, 0xFFFFFF, fps);
 	return (1);
 }
 
 int		ft_expose_hook(t_env *e)
 {
-	clock_t	start;
-	clock_t end;
-
-	start = clock();
 	if (e->key || e->first)
 	{
 		e->first = 0;
 		init_palette(e);
 		ft_move(e);
 		init_thread(e);
-		end = clock();
+		ft_fond(e);
 		mlx_put_image_to_window(e->mlx, e->win, e->img->img, 0, 0);
-		ft_fps(e, start, end);
+		ft_fps(e);
 	}
 	return (1);
 }
@@ -62,7 +54,7 @@ int		ft_motion(int x, int y, t_env *e)
 	{
 		e->first = 1;
 		e->f->c_r = -0.772691322542185 * x / (WIN_W / 2);
-		e->f->c_i = 0.124281466072787 * y  / (WIN_H/ 2);
+		e->f->c_i = 0.124281466072787 * y / (WIN_H / 2);
 	}
 	return (1);
 }
@@ -72,17 +64,13 @@ int		ft_mouse_hook(int key, int x, int y, t_env *e)
 	if (key == M_PLUS)
 	{
 		e->f->zoom *= 1.1;
-		e->f->ite_max += 1;
 		(x > (WIN_W / 2)) ? (e->f->movex += 0.1 / e->f->zoom) :
 		(e->f->movex -= 0.1 / e->f->zoom);
 		(y > (WIN_H / 2)) ? (e->f->movey += 0.1 / e->f->zoom) :
 		(e->f->movey -= 0.1 / e->f->zoom);
 	}
 	else if (key == M_MINUS)
-	{
 		e->f->zoom /= 1.1;
-		e->f->ite_max -= 1;
-	}
 	e->first = 1;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 18:01:56 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/19 23:30:36 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:07:50 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include "mlx.h"
 # include <math.h>
 # include <pthread.h>
-# include <time.h>
 
 # define WIN_W		700
 # define WIN_H		500
@@ -116,4 +115,5 @@ int						ft_julia(t_env *e, int x, int y);
 int						ft_burning(t_env *e, int x, int y);
 int						ft_usage(void);
 int						init_thread(t_env *e);
+int						ft_fond(t_env *e);
 #endif

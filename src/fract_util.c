@@ -6,7 +6,7 @@
 /*   By: vterzian <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/09/12 16:21:28 by vterzian          #+#    #+#             */
-/*   Updated: 2016/09/19 23:31:10 by vterzian         ###   ########.fr       */
+/*   Updated: 2016/09/22 18:10:53 by vterzian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,24 @@ int				ft_move(t_env *e)
 	if (e->key & R)
 		e->f->movex += 0.03 / e->f->zoom;
 	if (e->key & P)
-		e->f->ite_max += 2;
+		e->f->ite_max += (e->f->ite_max >= 200) ? 0 : 2;
 	if (e->key & M && e->f->ite_max > 0)
-		e->f->ite_max -= 2;
+		e->f->ite_max -= (e->f->ite_max <= 2) ? 0 : 2;
 	e->img->img = mlx_new_image(e->mlx, WIN_W, WIN_H);
+	return (1);
+}
+
+int				ft_fond(t_env *e)
+{
+	int	x;
+	int	y;
+
+	y = WIN_H - 30;
+	while (y++ < WIN_H)
+	{
+		x = -1;
+		while (++x < WIN_W)
+			ft_put_pixel_to_img(0x000000, e, x, y);
+	}
 	return (1);
 }
